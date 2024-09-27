@@ -4,13 +4,10 @@ require('dotenv').config(); // Load environment variables from .env file
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
 app.use(express.json());
 
-// MongoDB connection URI
-const uri = process.env.MONGODB_URI
+const uri = process.env.MONGODB_URI;
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -30,8 +27,21 @@ async function connectToDatabase() {
   }
 }
 
-// Call the function to connect to the database
+
 connectToDatabase();
+
+// Route to fetch all recipes
+app.get('/recipes', async (req, res) => {
+  try {
+    const database = client.db('recipes');
+    const recipesCollection = database.collection('recipesList');
+    const recipes = await recipesCollection.find({}).toArray();
+    res.json(recipes);
+  } catch (error) {
+    console.error('Error fetching recipes:', error);
+    res.status(500).json({ message: 'Failed to fetch recipes' });
+  }
+});
 
 // Basic route
 app.get('/', (req, res) => {
@@ -41,4 +51,4 @@ app.get('/', (req, res) => {
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
-  });
+});
