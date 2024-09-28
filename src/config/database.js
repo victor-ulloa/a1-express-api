@@ -1,3 +1,10 @@
+//  
+//  Victor Ulloa
+//  200597860
+//  database.js
+//  2024-9-27
+//
+
 const { MongoClient, ServerApiVersion } = require('mongodb');
 require('dotenv').config();
 

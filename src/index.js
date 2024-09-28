@@ -1,3 +1,10 @@
+//  
+//  Victor Ulloa
+//  200597860
+//  index.js
+//  2024-9-27
+//
+
 const express = require('express');
 const recipeRoutes = require('./routes/recipeRoutes');
 const connectToDatabase = require('./config/database'); // Optional if you handle DB connection in a separate file

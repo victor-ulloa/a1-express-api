@@ -1,3 +1,10 @@
+//  
+//  Victor Ulloa
+//  200597860
+//  recipeModel.js
+//  2024-9-27
+//
+
 const { MongoClient } = require('mongodb');
 const connectToDatabase = require('../config/database');
 

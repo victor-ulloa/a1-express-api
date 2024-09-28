@@ -1,3 +1,10 @@
+//  
+//  Victor Ulloa
+//  200597860
+//  recipeController.js
+//  2024-9-27
+//
+
 const recipeModel = require('../models/recipeModel');
 
 async function getAllRecipes(req, res) {
