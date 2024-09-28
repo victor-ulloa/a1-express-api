@@ -1,47 +1,19 @@
 const express = require('express');
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const recipeRoutes = require('./routes/recipeRoutes');
+const connectToDatabase = require('./config/database'); // Optional if you handle DB connection in a separate file
 require('dotenv').config(); // Load environment variables from .env file
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Middleware
 app.use(express.json());
 
-const uri = process.env.MONGODB_URI;
-
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-});
-
-// Connect to the database and ping it
-async function connectToDatabase() {
-  try {
-    await client.connect();
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } catch (error) {
-    console.error('Database connection error:', error);
-  }
-}
-
-
+// Connect to the database
 connectToDatabase();
 
-// Route to fetch all recipes
-app.get('/recipes', async (req, res) => {
-  try {
-    const database = client.db('recipes');
-    const recipesCollection = database.collection('recipesList');
-    const recipes = await recipesCollection.find({}).toArray();
-    res.json(recipes);
-  } catch (error) {
-    console.error('Error fetching recipes:', error);
-    res.status(500).json({ message: 'Failed to fetch recipes' });
-  }
-});
+// Use routes
+app.use('/recipes', recipeRoutes);
 
 // Basic route
 app.get('/', (req, res) => {
@@ -50,5 +22,5 @@ app.get('/', (req, res) => {
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
