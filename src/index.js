@@ -7,6 +7,7 @@
 
 const express = require('express');
 const recipeRoutes = require('./routes/recipeRoutes');
+const userRoutes = require('./routes/userRoutes'); // Import user routes
 const connectToDatabase = require('./config/database'); // Optional if you handle DB connection in a separate file
 require('dotenv').config(); // Load environment variables from .env file
 
@@ -20,14 +21,15 @@ app.use(express.json());
 connectToDatabase();
 
 // Use routes
-app.use('/recipes', recipeRoutes);
+app.use('/recipes', recipeRoutes); // Recipe routes
+app.use('/users', userRoutes); // User routes for authentication
 
 // Basic route
 app.get('/', (req, res) => {
-  res.send('Hello, World!');
+    res.send('Hello, World!');
 });
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
