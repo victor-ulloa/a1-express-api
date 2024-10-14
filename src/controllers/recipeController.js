@@ -64,9 +64,23 @@ async function updateRecipe(req, res) {
   }
 }
 
+// Controller to delete a recipe
+async function deleteRecipe(req, res) {
+  try {
+    const recipeId = parseInt(req.params.id); // Convert the ID from string to integer
+    const result = await recipeModel.deleteRecipe(recipeId);
+    
+    res.status(200).json(result); // Return success message with 200 status
+  } catch (error) {
+    console.error('Error deleting recipe:', error.message);
+    res.status(404).json({ message: 'Recipe not found', error: error.message });
+  }
+}
+
 module.exports = {
   getAllRecipes,
   getRecipeById,
   addNewRecipe,
   updateRecipe,
+  deleteRecipe,
 };

@@ -46,9 +46,24 @@ async function updateRecipe(id, updatedData) {
   return result.value; // Return the updated recipe
 }
 
+// Delete a recipe by ID
+async function deleteRecipe(recipeId) {
+  const recipesCollection = await getRecipesCollection();
+  
+  const result = await recipesCollection.deleteOne({ _id: recipeId });
+
+  // Check if a recipe was deleted
+  if (result.deletedCount === 1) {
+    return { message: 'Recipe deleted successfully' }; // Return success message
+  } else {
+    throw new Error('Recipe not found'); // Throw an error if no recipe was deleted
+  }
+}
+
 module.exports = {
   getAllRecipes,
   getRecipeById,
   addRecipe,
   updateRecipe,
+  deleteRecipe,
 };

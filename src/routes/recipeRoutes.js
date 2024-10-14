@@ -21,4 +21,7 @@ router.post('/', recipeController.addNewRecipe);
 // Route to update an existing recipe
 router.put('/:id', recipeController.updateRecipe);
 
+// Route to delete a recipe by ID
+router.delete('/:id', recipeController.deleteRecipe);
+
 module.exports = router;
