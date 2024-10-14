@@ -18,4 +18,7 @@ router.get('/:id', recipeController.getRecipeById);
 // Route to add a new recipe
 router.post('/', recipeController.addNewRecipe);
 
+// Route to update an existing recipe
+router.put('/:id', recipeController.updateRecipe);
+
 module.exports = router;

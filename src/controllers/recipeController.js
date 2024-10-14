@@ -45,8 +45,28 @@ async function addNewRecipe(req, res) {
   }
 }
 
+// Controller to update an existing recipe
+async function updateRecipe(req, res) {
+  try {
+    const recipeId = parseInt(req.params.id); // Convert the ID from string to integer
+    const updatedData = req.body; // Get updated recipe data from request body
+    const updatedRecipe = await recipeModel.updateRecipe(recipeId, updatedData);
+    
+    res.status(200).json(updatedRecipe); // Return the updated recipe
+  } catch (error) {
+    console.error('Error updating recipe:', error.message);
+    
+    if (error.message === 'Recipe not found') {
+      res.status(404).json({ message: 'Recipe not found' });
+    } else {
+      res.status(500).json({ message: 'Error updating recipe', error: error.message });
+    }
+  }
+}
+
 module.exports = {
   getAllRecipes,
   getRecipeById,
-  addNewRecipe, // Export the new function
+  addNewRecipe,
+  updateRecipe,
 };

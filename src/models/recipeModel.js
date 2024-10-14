@@ -35,8 +35,20 @@ async function addRecipe(recipeData) {
   return result.ops[0]; // Return the newly added recipe
 }
 
+// Update an existing recipe
+async function updateRecipe(id, updatedData) {
+  const recipesCollection = await getRecipesCollection();
+  const result = await recipesCollection.findOneAndUpdate(
+    { _id: id },
+    { $set: updatedData },
+    { returnDocument: 'after' } // Return the updated document
+  );
+  return result.value; // Return the updated recipe
+}
+
 module.exports = {
   getAllRecipes,
   getRecipeById,
-  addRecipe, // Export the new function
+  addRecipe,
+  updateRecipe,
 };
