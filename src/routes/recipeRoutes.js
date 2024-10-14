@@ -12,7 +12,10 @@ const recipeController = require('../controllers/recipeController');
 // Route to get all recipes
 router.get('/', recipeController.getAllRecipes);
 
-// Route to get a recipe by ID
+// Route to get recipe by ID
 router.get('/:id', recipeController.getRecipeById);
+
+// Route to add a new recipe
+router.post('/', recipeController.addNewRecipe);
 
 module.exports = router;

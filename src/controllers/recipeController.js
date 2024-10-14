@@ -33,7 +33,20 @@ async function getRecipeById(req, res) {
   }
 }
 
+// Controller to add a new recipe
+async function addNewRecipe(req, res) {
+  try {
+    const newRecipe = req.body; // Get new recipe data from request body
+    const createdRecipe = await recipeModel.addRecipe(newRecipe);
+    res.status(201).json(createdRecipe);
+  } catch (error) {
+    console.error('Error adding recipe:', error);
+    res.status(500).json({ message: 'Error adding recipe' });
+  }
+}
+
 module.exports = {
   getAllRecipes,
   getRecipeById,
+  addNewRecipe, // Export the new function
 };
