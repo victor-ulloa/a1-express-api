@@ -12,4 +12,7 @@ const recipeController = require('../controllers/recipeController');
 // Route to get all recipes
 router.get('/', recipeController.getAllRecipes);
 
+// Route to get a recipe by ID
+router.get('/:id', recipeController.getRecipeById);
+
 module.exports = router;
